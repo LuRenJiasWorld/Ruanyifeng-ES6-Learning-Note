@@ -330,4 +330,188 @@
 
 - `ES2019`新增了`trimStart()`和`trimEnd()`两个方法，和`trim()`一致，消除头部和尾部的空格，不会修改原始字符串
 
+## 正则的扩展
+
+- 正则表达式的初始化
+
+  ```javascript
+  var regex = new RegExp('xyz', 'i');
+  var regex = /xyz/i;
+  var regex = new RegExp(/xyz/i);
+  new RegExp(/abc/ig, 'i') // ES6引入，ig被覆盖为i
+  ```
+
+- 字符串的正则方法
+
+  - `match()`
+  - `replace()`
+  - `search()`
+  - `split()`
+
+- 正则表达式的`u`修饰符（ES6引入），用于扩展到所有Unicode字符
+
+  - 包含双Unicode码字符（如Emoji）
+  - 包含\u{0xFFFF}以上的Unicode码
+  - 包含同字但不同Unicode码的情况（如K可以使用`\u{004B}`或`\u{212A}`表示）
+
+  ```javascript
+  /^.$/u.test("😂")
+  true
+  /^.$/.test("😂")
+  false
+  ```
+
+- 正则表达式的`y`修饰符（ES6引入），要求这一次匹配必须从上一次匹配的头部开始（粘连/sticky）
+
+- ES6引入了正则表达式的`flags`属性，可以返回当前所设置的所有修饰符
+
+- ES2018引入了`s`修饰符，使得点号可以匹配任意单个字符，可以使用`dotAll`属性进行访问
+
+  ```javascript
+  const re = /foo.bar/s;
+  // 另一种写法
+  // const re = new RegExp('foo.bar', 's');
   
+  re.test('foo\nbar') // true
+  re.dotAll // true
+  re.flags // 's'
+  ```
+
+- 先行断言和后行断言
+
+  ```javascript
+  // 先行断言
+  /\d+(?=%)/.exec('100% of US presidents have been male')  // ["100"]
+  /\d+(?!%)/.exec('that’s all 44 of them')                 // ["44"]
+  
+  // 后行断言
+  /(?<=\$)\d+/.exec('Benjamin Franklin is on the $100 bill')  // ["100"]
+  /(?<!\$)\d+/.exec('it’s is worth about €90')                // ["90"]
+  ```
+
+- Unicode属性类（匹配某一类的所有Unicode字符）
+
+  ```javascript
+  const regexGreekSymbol = /\p{Script=Greek}/u;
+  regexGreekSymbol.test('π') // true
+  
+  const regex = /^\p{Decimal_Number}+$/u;
+  regex.test('𝟏𝟐𝟑𝟜𝟝𝟞𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟺𝟻𝟼') // true
+  
+  const regex = /^\p{Number}+$/u;
+  regex.test('²³¹¼½¾') // true
+  regex.test('㉛㉜㉝') // true
+  regex.test('ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫ') // true
+  
+  // 匹配所有空格
+  \p{White_Space}
+  
+  // 匹配各种文字的所有字母，等同于 Unicode 版的 \w
+  [\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Connector_Punctuation}\p{Join_Control}]
+  
+  // 匹配各种文字的所有非字母的字符，等同于 Unicode 版的 \W
+  [^\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Connector_Punctuation}\p{Join_Control}]
+  
+  // 匹配 Emoji
+  /\p{Emoji_Modifier_Base}\p{Emoji_Modifier}?|\p{Emoji_Presentation}|\p{Emoji}\uFE0F/gu
+  
+  // 匹配所有的箭头字符
+  const regexArrows = /^\p{Block=Arrows}+$/u;
+  regexArrows.test('←↑→↓↔↕↖↗↘↙⇏⇐⇑⇒⇓⇔⇕⇖⇗⇘⇙⇧⇩') // true
+  ```
+
+- 组匹配和具名组匹配
+
+  - 使用括号注明捕获组
+
+    ```javascript
+    const RE_DATE = /(\d{4})-(\d{2})-(\d{2})/;
+    
+    const matchObj = RE_DATE.exec('1999-12-31');
+    const year = matchObj[1]; // 1999
+    const month = matchObj[2]; // 12
+    const day = matchObj[3]; // 31
+    ```
+
+  - ES2018引入具名组匹配，允许给匹配组命名
+
+    ```javascript
+    const RE_DATE = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+    
+    const matchObj = RE_DATE.exec('1999-12-31');
+    const year = matchObj.groups.year; // 1999
+    const month = matchObj.groups.month; // 12
+    const day = matchObj.groups.day; // 31
+    ```
+
+  - 可以将具名组匹配和解构赋值相结合
+
+    ```javascript
+    let {groups: {one, two}} = /^(?<one>.*):(?<two>.*)$/u.exec('foo:bar');
+    one  // foo
+    two  // bar
+    ```
+
+  - 还可以与字符串替换结合
+
+    ```javascript
+    '2015-01-02'.replace(re, '$<day>/$<month>/$<year>')
+    // '02/01/2015'
+    ```
+
+- 可以引用前面的某个普通组/具名组
+
+  ```javascript
+  const RE_TWICE = /^(?<word>[a-z]+)!\k<word>$/;
+  RE_TWICE.test('abc!abc') // true
+  RE_TWICE.test('abc!ab') // false
+  
+  // 数字引用也是有效的
+  const RE_TWICE = /^(?<word>[a-z]+)!\k<word>!\1$/;
+  RE_TWICE.test('abc!abc!abc') // true
+  RE_TWICE.test('abc!abc!ab') // false
+  ```
+
+- 可以通过`exec()`返回后的`indices`属性拿到每个匹配的开始和结束位置
+
+  ```javascript
+  const text = 'zabbcdef';
+  const re = /ab+(cd)/;
+  const result = re.exec(text);
+  
+  result.indices // [ [ 1, 6 ], [ 4, 6 ] ]
+  ```
+
+- 还可以通过`indices`属性的`groups`属性拿到一个包含具名组信息和开始/结束位置的对象
+
+  ```javascript
+  const text = 'zabbcdef';
+  const re = /ab+(?<Z>cd)/;
+  const result = re.exec(text);
+  
+  result.indices.groups // { Z: [ 4, 6 ] }
+  ```
+
+- ES2020引入了`String.prototype.matchAll()`方法，可以一次性取出所有匹配，但会一个遍历器
+
+  ```javascript
+  const string = 'test1test2test3';
+  
+  // g 修饰符加不加都可以
+  const regex = /t(e)(st(\d?))/g;
+  
+  for (const match of string.matchAll(regex)) {
+    console.log(match);
+  }
+  // ["test1", "e", "st1", "1", index: 0, input: "test1test2test3"]
+  // ["test2", "e", "st2", "2", index: 5, input: "test1test2test3"]
+  // ["test3", "e", "st3", "3", index: 10, input: "test1test2test3"]
+  ```
+
+- 遍历器转为数组的方式
+
+  ```javascript
+  [...string.matchAll(regex)]
+  Array.from(string.matchAll(regex))
+  ```
+
