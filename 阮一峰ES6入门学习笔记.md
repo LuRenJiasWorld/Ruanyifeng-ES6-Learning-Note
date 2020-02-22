@@ -515,3 +515,93 @@
   Array.from(string.matchAll(regex))
   ```
 
+## 数值的扩展
+
+- ES6规范了二进制/八进制分别用`0b`和`0o`表示
+
+- 使用`Number()`构造函数将不同进制的数字规范为十进制
+
+- ES6在Number对象上新增了`Number.isFinite()`和`Number.isNaN()`两个方法，相比较全局的同名方法，Number的这两个方法
+
+- ES6将`parseInt()`和`parseFloat()`移植到了Number对象中，使得语言逐步模块化
+
+  ```javascript
+  Number.parseInt === parseInt // true
+  Number.parseFloat === parseFloat // true
+  ```
+
+- `Number.isInteger()`可以用来判断一个数值是否为整数，但是对于`20.0`也会返回True（因为JavaScript内对浮点数和整数的存储方法相同）
+
+  > 因为JavaScript内部使用64位双精度存储数字，因此该方法可能会存在误判：
+  >
+  > ```javascript
+  > Number.parseInt === parseInt // true
+  > Number.parseFloat === parseFloat // true
+  > ```
+
+- `Number.EPSILON`表示最小精度的数字，用于为浮点数计算设置一个误差范围
+
+  ```javascript
+  0.1 + 0.2
+  // 0.30000000000000004
+  
+  0.1 + 0.2 - 0.3
+  // 5.551115123125783e-17
+  
+  5.551115123125783e-17.toFixed(20)
+  // '0.00000000000000005551'
+  
+  0.1 + 0.2 === 0.3 // false
+  
+  function withinErrorMargin (left, right) {
+    return Math.abs(left - right) < Number.EPSILON * Math.pow(2, 2);
+  }
+  
+  0.1 + 0.2 === 0.3 // false
+  withinErrorMargin(0.1 + 0.2, 0.3) // true
+  
+  1.1 + 1.3 === 2.4 // false
+  withinErrorMargin(1.1 + 1.3, 2.4) // true
+  ```
+
+- `Number.isSafeInteger()`属性用于判断是否存在溢出情况
+
+- `Math.trunc()`方法用于去除小数部分，返回整数部分，是`Math.ceil()`和`Math.floor()`的结合
+
+  > ```javascript
+  > Math.trunc = Math.trunc || function(x) {
+  >   return x < 0 ? Math.ceil(x) : Math.floor(x);
+  > };
+  > ```
+
+- `Math.sign()`可以用于判断一个数到底是正数、负数还是0
+
+- `Math.cbrt()`可以用于计算一个数的立方根
+
+- `Math.clz32()`可以用于计算一个32位无符号**整数**内存在多少个前导0
+
+  > ```javascript
+  > Math.clz32(0) // 32
+  > Math.clz32(1) // 31
+  > Math.clz32(1000) // 22
+  > Math.clz32(0b01000000000000000000000000000000) // 1
+  > Math.clz32(0b00100000000000000000000000000000) // 2
+  > ```
+
+- `Math.log10()`可以返回10为底的x的对数
+
+- `Math.log2()`可以返回以2为底的x的对数
+
+- ES2016引入了指数运算符（`**`），但是和其他语言不一样，它是右结合的
+
+  > ```javascript
+  > // 相当于 2 ** (3 ** 2)
+  > 2 ** 3 ** 2
+  > // 512
+  > 
+  > a **= 2;
+  > // 相当于a = a * a
+  > ```
+
+- ES2020引入了一个新的数据类型`BigInt`来解决这个问题，可以存储任何位数的整数，在声明字面量时添加后缀n来声明，也可以通过`BitInt()`构造方法将其他类型的值转换为`BitInt`
+
