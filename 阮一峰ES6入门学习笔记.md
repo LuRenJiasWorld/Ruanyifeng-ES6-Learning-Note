@@ -230,3 +230,61 @@
   - 遍历Map结构
   - 导入模块中的指定方法（最常用）
 
+## 字符串的扩展
+
+- 字符串拥有遍历器接口，可以被循环遍历（支持大于`0xFFFF`的码点比如Emoji）
+
+- 模板字符串
+
+  - 使用反引号代替单双引号，可以嵌入模板字符串（可以当做普通字符串、也可以当做多行字符串、还可以插入变量）
+
+    ```javascript
+    // 普通字符串
+    `In JavaScript '\n' is a line-feed.`
+    
+    // 多行字符串
+    `In JavaScript this is
+     not legal.`
+    
+    console.log(`string text line 1
+    string text line 2`);
+    
+    // 字符串中嵌入变量
+    let name = "Bob", time = "today";
+    `Hello ${name}, how are you ${time}?`
+    ```
+
+  - 如果需要过滤换行符号，可以加一个`trim()`
+
+    ```javascript
+    $('#list').html(`
+    <ul>
+      <li>first</li>
+      <li>second</li>
+    </ul>
+    `.trim());
+    ```
+
+  - 嵌入变量需要把变量名加入`${}`里面，括号里面可以放入任意的JavaScript表达式，甚至可以调用函数，但不能调用没声明的变量
+
+  - 模板字符串可以嵌套使用
+
+    ```javascript
+    const tmpl = addrs => `
+      <table>
+      ${addrs.map(addr => `
+        <tr><td>${addr.first}</td></tr>
+        <tr><td>${addr.last}</td></tr>
+      `).join('')}
+      </table>
+    `;
+    ```
+
+  - 模板字符串可以作为函数被调用
+
+    ```javascript
+    let func = (name) => `Hello ${name}!`;
+    func('Jack') // "Hello Jack!"
+    ```
+
+  
