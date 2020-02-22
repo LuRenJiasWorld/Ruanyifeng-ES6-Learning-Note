@@ -78,5 +78,155 @@
 
 ## 变量的解构赋值
 
-- 
+- ES6允许对变量进行解构赋值，只要左右两边模式相同就可以一一对应，如果解构失败，失败的值等于`undefined`：
+
+  ```javascript
+  let [foo, [[bar], baz]] = [1, [[2], 3]];
+  foo // 1
+  bar // 2
+  baz // 3
+  
+  let [ , , third] = ["foo", "bar", "baz"];
+  third // "baz"
+  
+  let [x, , y] = [1, 2, 3];
+  x // 1
+  y // 3
+  
+  let [head, ...tail] = [1, 2, 3, 4];
+  head // 1
+  tail // [2, 3, 4]
+  
+  let [x, y, ...z] = ['a'];
+  x // "a"
+  y // undefined
+  z // []
+  ```
+
+- 只要数据结构拥有`Iterator`接口，就都可以使用数组形式的解构赋值
+
+- 解构赋值允许指定默认值，但默认值只有当对应位置为`undefined`（严格等于）才能生效
+
+  ```javascript
+  let [foo = true] = [];
+  foo // true
+  
+  let [x, y = 'b'] = ['a']; // x='a', y='b'
+  let [x, y = 'b'] = ['a', undefined]; // x='a', y='b'
+  ```
+
+- 解构赋值的默认值是惰性求值的，只有在用到的时候才会被求值
+
+- 解构赋值的默认值可以引用解构赋值的其他变量（但必须是已经声明的变量）
+
+  ```javascript
+  let [x = 1, y = x] = [];     // x=1; y=1
+  let [x = 1, y = x] = [2];    // x=2; y=2
+  let [x = 1, y = x] = [1, 2]; // x=1; y=2
+  let [x = y, y = 1] = [];     // ReferenceError: y is not defined
+  ```
+
+- 解构赋值也可以用于对象，但是变量必须与属性同名才能取到相应的值，否则为`undefined`
+
+- 对象解构可以方便的提取现有对象的方法：
+
+  ```javascript
+  // 例一
+  let { log, sin, cos } = Math;
+  
+  // 例二
+  const { log } = console;
+  log('hello') // hello
+  ```
+
+- 如果变量名和属性名不一致，需要指定属性名
+
+  ```javascript
+  let { foo: baz } = { foo: 'aaa', bar: 'bbb' };
+  baz // "aaa"
+  
+  let obj = { first: 'hello', last: 'world' };
+  let { first: f, last: l } = obj;
+  f // 'hello'
+  l // 'world'
+  ```
+
+- 解构也可以用于嵌套的对象
+
+  ```javascript
+  let obj = {
+    p: [
+      'Hello',
+      { y: 'World' }
+    ]
+  };
+  
+  // 这里的p是模式名，不是变量，不会被赋值
+  let { p: [x, { y }] } = obj;
+  // 如果要赋值，需要额外加一个p
+  let { p, p: [x, { y }] } = obj;
+  x // "Hello"
+  y // "World"
+  ```
+
+- 对象的解构赋值可以取到继承的属性
+
+  ```javascript
+  const obj1 = {};
+  const obj2 = { foo: 'bar' };
+  Object.setPrototypeOf(obj1, obj2);
+  
+  const { foo } = obj1;
+  foo // "bar"
+  ```
+
+- 对象的解构也可以指定默认值
+
+- 字符串也可以被解构赋值（因为字符串属于可迭代对象）
+
+- 只要等号右边的值不是对象/数组，就会先将其转换为对象，因此`undefined`和`null`是不能被解构赋值的
+
+- 函数参数也可以被解构赋值
+
+  ```javascript
+  function add([x, y]){
+    return x + y;
+  }
+  
+  add([1, 2]); // 3
+  ```
+
+- 函数参数也可以使用默认值
+
+  ```javascript
+  // 情况1（为第一个参数中的x/y指定默认值）
+  function move({x = 0, y = 0} = {}) {
+    return [x, y];
+  }
+  
+  move({x: 3, y: 8}); // [3, 8]
+  move({x: 3}); // [3, 0]
+  move({}); // [0, 0]
+  move(); // [0, 0]
+  
+  // 情况2（为move的参数指定默认值，只要参数为undefined，就会触发默认值）
+  function move({x, y} = { x: 0, y: 0 }) {
+    return [x, y];
+  }
+  
+  move({x: 3, y: 8}); // [3, 8]
+  move({x: 3}); // [3, undefined]
+  move({}); // [undefined, undefined]
+  move(); // [0, 0]
+  ```
+
+- 用途
+
+  - 交换变量的值（无需新增变量）
+  - 从函数返回多个值
+  - 为函数调用增加参数名称
+  - 提取JSON中的数据
+  - 作为函数参数的默认值
+  - 遍历Map结构
+  - 导入模块中的指定方法（最常用）
 
