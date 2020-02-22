@@ -287,4 +287,47 @@
     func('Jack') // "Hello Jack!"
     ```
 
+## 字符串的新增方法
+
+- `includes()`：是否包含参数字符串
+
+- `startsWith()`：是否在原字符串的头部
+
+- `endsWith()`：是否在原字符串的尾部
+
+  > 这三个方法都支持使用第二个参数表示开始搜索的位置，其中endsWith是针对前n个字符，而其他两个方法针对从n到结束
+
+  ```javascript
+  let s = 'Hello world!';
+  
+  s.startsWith('world', 6) // true
+  s.endsWith('Hello', 5) // true
+  s.includes('Hello', 6) // false
+  ```
+
+- `repeat()`表示将原字符串重复n次
+
+- `padStart()`和`padEnd()`表示在头部或尾部使用指定字符串补全
+
+  ```javascript
+  'x'.padStart(5, 'ab') // 'ababx'
+  'x'.padStart(4, 'ab') // 'abax'
+  
+  'x'.padEnd(5, 'ab') // 'xabab'
+  'x'.padEnd(4, 'ab') // 'xaba'
+  ```
+
+  > 最常见的用途是为指定的数值补全指定位数，或是提示字符串格式
+  >
+  > ```javascript
+  > '1'.padStart(10, '0') // "0000000001"
+  > '12'.padStart(10, '0') // "0000000012"
+  > '123456'.padStart(10, '0') // "0000123456"
+  > 
+  > '12'.padStart(10, 'YYYY-MM-DD') // "YYYY-MM-12"
+  > '09-12'.padStart(10, 'YYYY-MM-DD') // "YYYY-09-12"
+  > ```
+
+- `ES2019`新增了`trimStart()`和`trimEnd()`两个方法，和`trim()`一致，消除头部和尾部的空格，不会修改原始字符串
+
   
