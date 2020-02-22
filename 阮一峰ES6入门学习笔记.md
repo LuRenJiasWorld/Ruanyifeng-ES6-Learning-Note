@@ -605,3 +605,218 @@
 
 - ES2020引入了一个新的数据类型`BigInt`来解决这个问题，可以存储任何位数的整数，在声明字面量时添加后缀n来声明，也可以通过`BitInt()`构造方法将其他类型的值转换为`BitInt`
 
+## 函数的扩展
+
+- ES6之后函数参数可以引入默认值：
+
+  ```javascript
+  function log(x, y = 'World') {
+    console.log(x, y);
+  }
+  
+  log('Hello') // Hello World
+  log('Hello', 'China') // Hello China
+  log('Hello', '') // Hello
+  ```
+
+- 使用参数默认值时，函数不能有同名参数
+
+- 可以与解构赋值的默认值结合使用
+
+  ```javascript
+  function foo({x, y = 5} = {}) {
+    console.log(x, y);
+  }
+  
+  foo() // undefined 5
+  ```
+
+- 区分默认值两种写法：
+
+  ```javascript
+  // 写法一
+  function m1({x = 0, y = 0} = {}) {
+    return [x, y];
+  }
+  
+  // 写法二
+  function m2({x, y} = { x: 0, y: 0 }) {
+    return [x, y];
+  }
+  
+  // 函数没有参数的情况
+  m1() // [0, 0]
+  m2() // [0, 0]
+  
+  // x 和 y 都有值的情况
+  m1({x: 3, y: 8}) // [3, 8]
+  m2({x: 3, y: 8}) // [3, 8]
+  
+  // x 有值，y 无值的情况
+  m1({x: 3}) // [3, 0]
+  m2({x: 3}) // [3, undefined]
+  
+  // x 和 y 都无值的情况
+  m1({}) // [0, 0];
+  m2({}) // [undefined, undefined]
+  
+  m1({z: 3}) // [0, 0]
+  m2({z: 3}) // [undefined, undefined]
+  ```
+
+- 只有尾部的参数才能有默认值
+
+- 函数的`length`参数指定的是期望传入的参数个数，不计包含默认值的参数（因为不期望能传入）
+
+- ES6引入rest参数替代之前的arguments变量实现可变参数
+
+  > ```javascript
+  > function add(...values) {
+  >   let sum = 0;
+  > 
+  >   for (var val of values) {
+  >     sum += val;
+  >   }
+  > 
+  >   return sum;
+  > }
+  > 
+  > add(2, 5, 3) // 10
+  > 
+  > // arguments变量的写法
+  > function sortNumbers() {
+  >   // 使用Array.prototype.slice.call将参数转换为数组
+  >   return Array.prototype.slice.call(arguments).sort();
+  > }
+  > 
+  > // rest参数的写法
+  > const sortNumbers = (...numbers) => numbers.sort();
+  > ```
+
+- 函数的`name`属性可以返回函数名
+- 箭头函数的四个注意点：
+  - `this`指向定义时所在的对象，而不是使用时所在的对象
+  - 不可以当做构造函数使用（不能使用new命令）
+  - 没有`arguments`对象，但是可以使用rest参数实现可变参数
+  - 没有`yield`命令，不能当做`Generator`函数
+
+- 不适合使用箭头函数的地方
+
+  - 定义对象的方法，这里的this会指向全局对象，因为对象不属于作用域
+  - this的值动态变化（例如响应事件时，因为事件的this一般是触发事件的对象，不是某个固定的对象）
+
+- 尾调用优化（目前只有Safari支持，可以节省内存，直达内层函数的调用帧，但是要求严格模式开启）
+
+- 尾递归优化（存储递归的结果，不会发生栈溢出，所有满足ES6规范的客户端都要支持）
+
+- 递归函数的改写
+
+  - 对于需要状态参数的递归函数，可以用另一个caller将其包裹，保持API的友好
+
+- ES2019要求函数的`toString()`方法必须返回函数本身的所有代码（包括注释、空格）
+
+- ES2019允许`catch`语句省略参数
+
+  ```javascript
+  try {
+    
+  } catch { // 如果用不上err不用再写
+    
+  }
+  ```
+
+### 关于this/apply/call/bind
+
+#### this
+
+- 默认指向最后**调用**它的那个对象
+
+  > ```javascript
+  > var name = "windowsName";
+  > 
+  > function fn() {
+  >   var name = 'Cherry';
+  >   innerFunction();
+  >   function innerFunction() {
+  >     console.log(this.name);      // windowsName
+  >   }
+  > }
+  > 
+  > fn()
+  > // 这时候fn()的this是window
+  > ```
+
+- 箭头函数中永远指向定义时候的this，不受调用干扰
+
+  > ```javascript
+  > var name = "windowsName";
+  > 
+  > var fn = {
+  >   name: 'Cherry',
+  >   // innerFunction的this为fn
+  >   innerFunction: function() {
+  >     // 此处继承innerFunction的this
+  >     setTimeout(() => {
+  >       console.log(this.name)
+  >     })
+  >   }
+  > }
+  > 
+  > fn.innerFunction()
+  > ```
+  >
+  > 箭头函数本身没有this，如果箭头函数被非箭头函数包含，则 this 绑定的是最近一层非箭头函数的 this，否则，this 为 undefined
+
+- 使用`that = this`来指定this
+
+  > ```javascript
+  > var name = "windowsName";
+  > 
+  > var a = {
+  > 
+  >   name : "Cherry",
+  > 
+  >   func1: function () {
+  >     console.log(this.name)     
+  >   },
+  > 
+  >   func2: function () {
+  >     var that = this;
+  >     setTimeout( function() {
+  >     	// 指定后that就变成了a而不是window
+  >       that.func1()
+  >     },100);
+  >   }
+  > 
+  > };
+  > 
+  > a.func2()       // Cherry
+  > ```
+
+### apply/call/bind
+
+- 使用这三个函数也可以来改变`this`的指向
+
+  > ```javascript
+  > func2: function () {
+  >   setTimeout(  function () {
+  >     this.func1()
+  >   }.apply(a),100);
+  > }
+  > 
+  > func2: function () {
+  >   setTimeout(  function () {
+  >     this.func1()
+  >   }.call(a),100);
+  > }
+  > 
+  > func2: function () {
+  >   setTimeout(  function () {
+  >     this.func1()
+  >   }.bind(a)(),100);
+  > }
+  > ```
+
+- `apply`调用一个函数，传入this值和数组包裹的参数列表
+- `call`调用一个函数，传入this值和单独的若干个参数
+- `bind`创建一个新的函数，传入this和预置参数，被调用的时候可以传入新的参数，附加在预置参数之后
