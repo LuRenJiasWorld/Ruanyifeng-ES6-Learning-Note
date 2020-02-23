@@ -1235,3 +1235,18 @@
     - `Set.prototype.forEach()`使用回调函数遍历成员
 
 - `Map`相对于`Object`，键可以为任何类型，提供了值-值的对应，属性/方法和`Set`基本一致
+
+## Promise
+
+- 本质上是一个容器，存储着未来才会结束的事件
+  - 对象状态不受外界影响，只有自身能定义自身的状态，外部无法改变
+  - 一旦状态改变，就不会再改变
+- `Promise`新建之后会立即执行，因此一般会使用一个函数将其包裹起来，不会直接`new Promise`赋值给一个变量
+- `Promise`一般会在`resolve()`或者`reject()`之后继续执行下面的代码，将其放在本轮事件循环的结尾，留到最后执行，因此为了避免出现问题，一般会使用`return resolve()`的方式
+- `Promise`的`then`会接收来自前者的返回值，因此可以附加多个`then`实现链式操作
+- `catch`其实是`then(undefined, function)`的别名，用于专门捕获错误
+- `finally`可以用于处理善后，无论触发`then`还是`catch`都会被调用
+- `Promise.all()`用于将多个Promise实例包装成一个新的Promise实例，必须所有实例变为`fulfilled`或者是其中任意一个变为`rejected`才会调用`Promise.all`方法后面的回调函数
+- `Promise.race()`和`all()`类似，但是只要有一个实例率先改变状态，就会调用后面的回调函数，可以用于超时的实现（其中一个实例会在超时后`reject`）
+- `Promise.allSettled()`需要等所有参数实例返回结果（无论是`rejected`还是`resolved`，才会调用后面的回调函数（ES2020引入）
+- `Promise.resolve()` 、`Promise.reject()`可以将现有对象转换为`Promise`对象
