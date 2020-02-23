@@ -1220,3 +1220,18 @@
   - `Object.prototype.isPrototypeOf()`指定对象是否在本对象的原型链中
   - `Object.is()`判断两个值是否相同（内存/字面量相同）
 
+## Set和Map数据结构
+
+- Set结构有以下属性和方法
+  - `Set.prototype.size`返回Set实例的成员总数
+  - `Set.prototype.add(value)`添加某个值，返回`Set`本身
+  - `Set.prototype.delete(value)`删除一个值，返回bool（删除是否成功）
+  - `Set.prototype.has(value)`返回一个布尔值，表示该值是否为`Set`的成员
+  - `Set.prototype.clear()`清除所有成员，没有返回值
+  - 四个遍历方法：
+    - `Set.prototype.keys()`返回键名遍历器
+    - `Set.prototype.values()`返回键值的遍历器
+    - `Set.prototype.entries()`返回键值对的遍历器
+    - `Set.prototype.forEach()`使用回调函数遍历成员
+
+- `Map`相对于`Object`，键可以为任何类型，提供了值-值的对应，属性/方法和`Set`基本一致
