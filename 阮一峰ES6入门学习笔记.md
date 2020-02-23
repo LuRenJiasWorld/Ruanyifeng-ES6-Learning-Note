@@ -1085,4 +1085,138 @@
 
 ## 对象的扩展
 
-## 对象的新增方法
+- 属性可以简写（使用大括号包围）
+
+  ```javascript
+  function f(x, y) {
+    return {x, y};
+  }
+  
+  // 等同于
+  
+  function f(x, y) {
+    return {x: x, y: y};
+  }
+  
+  f(1, 2) // Object {x: 1, y: 2}
+  ```
+
+- 方法也可以简写（在Vue.js里面有用到）
+
+  ```javascript
+  const o = {
+    method() {
+      return "Hello!";
+    }
+  };
+  
+  // 等同于
+  
+  const o = {
+    method: function() {
+      return "Hello!";
+    }
+  };
+  ```
+
+- JS模块也使用到了简写
+
+  ```javascript
+  let ms = {};
+  
+  function getItem (key) {
+    return key in ms ? ms[key] : null;
+  }
+  
+  function setItem (key, value) {
+    ms[key] = value;
+  }
+  
+  function clear () {
+    ms = {};
+  }
+  
+  module.exports = { getItem, setItem, clear };
+  // 等同于
+  module.exports = {
+    getItem: getItem,
+    setItem: setItem,
+    clear: clear
+  };
+  ```
+
+- 但是构造函数不能简写
+
+- JavaScript定义对象的属性有两种方法，但是如果用大括号定义对象只能用方法1
+
+  ```javascript
+  // 方法一
+  obj.foo = true;
+  
+  // 方法二
+  obj['a' + 'bc'] = 123;
+  ```
+
+- 方法也可以拥有`name`属性，返回方法的名字，但是匿名函数返回`anonymous`，`bind`方法创造的函数，名字前会加一个`bound `
+
+- ES6引入了`super`关键字，指向原型对象，但是只能用在方法里
+
+  ```javascript
+  // 报错
+  const obj = {
+    foo: super.foo
+  }
+  
+  // 报错
+  const obj = {
+    foo: () => super.foo
+  }
+  
+  // 报错
+  const obj = {
+    foo: function () {
+      return super.foo
+    }
+  }
+  ```
+
+- `super`关键字等同于`Object.getPrototypeOf(this).foo`（属性）或`Object.getPrototypeOf(this).foo.call(this)`（方法）
+
+- ES2020引入链式判断运算符（和Swift类似），如果条件都不满足，返回`undefined`
+
+  ```javascript
+  const firstName = message?.body?.user?.firstName || 'default';
+  const fooValue = myForm.querySelector('input[name=foo]')?.value
+  ```
+
+- 链式判断运算符可以用于调用一个可能不存在的对象，利用它如果不为真就不会求值的特性
+
+- ES2020引入了一个新的Null判断运算符`??`，对比`||`，只有左侧的值为`null`和`undefined`才能返回右侧的值，而不像`||`对`false`和`0`也生效
+
+### 对象的各种方法
+
+- 初始化方法
+  - `Object.assign()`合并两个对象，返回目标对象，同名对象后来者后覆盖，可以用于深拷贝
+  - `Object.create()`创建一个新对象，可以用于继承
+- 配置属性
+  - `Object.defineProperty()`给对象添加一个属性，并指定该属性的配置
+  - `Object.defineProperties()`给对象添加多个属性，并分别指定它们的配置
+- 获取属性
+  - `Object.getOwnPropertyDescriptor(obj, prop)`可以获取到方法中某个属性的描述对象
+  - `Object.getOwnPropertyNames(obj)`可以获取到对象自身所有属性（不含`Symbol`，但是包含不可枚举属性）的键名
+  - `Object.getOwnPropertySymbols(obj)`可以获取到自身所有`Symbol`属性的键名
+  - `for...in`循环遍历对象自身的可枚举属性（不含`Symbol`属性）
+  - `Object.entries()`返回对象自身可枚举属性的键值对数组（二维数组），和`for...in`返回内容相同
+  - `Object.keys()`获取对象自身所有属性（不含`Symbol`和不可枚举属性）
+  - `Reflect.ownKeys(obj)`获取所有键名（包含`Symbol`和不可枚举属性）
+  - `Object.prototype.toString()`返回对象的字符串表示
+- 配置状态
+  - `Object.preventExtensions()`阻止对象的任何扩展
+  - `Object.freeze()`阻止对象被修改
+  - `Object.seal()`阻止其他代码删除对象的属性（使用`delete`关键字）
+  - `Object.setPrototypeOf()`设置对象的原型
+- 获取状态
+  - `Object.prototype.hasOwnProperty()`某个对象是否有非继承的指定属性
+  - `Object.prototype.isPrototypeOf()`指定对象是否在本对象的原型链中
+  - `Object.is()`判断两个值是否相同（内存/字面量相同）
+
