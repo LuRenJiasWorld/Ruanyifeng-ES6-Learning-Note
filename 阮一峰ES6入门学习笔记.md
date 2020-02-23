@@ -1250,3 +1250,36 @@
 - `Promise.race()`和`all()`类似，但是只要有一个实例率先改变状态，就会调用后面的回调函数，可以用于超时的实现（其中一个实例会在超时后`reject`）
 - `Promise.allSettled()`需要等所有参数实例返回结果（无论是`rejected`还是`resolved`，才会调用后面的回调函数（ES2020引入）
 - `Promise.resolve()` 、`Promise.reject()`可以将现有对象转换为`Promise`对象
+
+## Iterator&for...of
+
+- Iterator本质就是不断调用对象的`next()`方法
+
+- 一个数据结构只要有`Symbol.iterator`属性（本质上是一个遍历器生成函数），就可以被认为是可遍历的，在TypeScript中可以看得更直观
+
+  ```typescript
+  interface Iterable {
+    [Symbol.iterator]() : Iterator,
+  }
+  
+  interface Iterator {
+    next(value?: any) : IterationResult,
+  }
+  
+  interface IterationResult {
+    value: any,
+    done: boolean,
+  }
+  ```
+
+- 原生具有`Iterator`接口的数据结构有
+
+  - `Array`
+  - `Map`
+  - `Set`
+  - `String`
+  - `TypedArray`
+  - 函数的`arguments`对象
+  - `NodeList`对象
+
+- 遍历器对象还可以有`return()`方法，来保证迭代提前退出（break或者出错）的时候资源被释放
