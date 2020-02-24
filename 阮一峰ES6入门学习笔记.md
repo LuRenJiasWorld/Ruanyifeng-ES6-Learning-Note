@@ -1351,3 +1351,12 @@
   - `<script>`可以带一个`async`或者`defer`属性，前者在JS加载完之后立刻执行（不管是否渲染完毕）阻塞页面渲染，后者等待页面渲染完毕再执行
   - 浏览器加载ES6模块需要在`<script>`里带一个`type="module"`属性，此时加载默认为`defer`模式，不会阻塞浏览器
 
+## ArrayBuffer
+
+- ArrayBuffer最初设计目的是为了提升性能，允许开发者以数组下标的方式直接访问内存
+- ArrayBuffer包含三部分：
+  - ArrayBuffer对象，提供了一批通用接口用于操作内存
+  - TypedArray视图，包含常用数据结构
+  - DataView视图，用于自定义各种复合类型，类似于结构体
+- ArrayBuffer对象构造函数接受整数，代表字节数：`const buf = new ArrayBuffer(32);`构造32字节内存区域，每个字节的值都为0
+- 使用ArrayBuffer需要先分配内存，再将内存赋予指定视图，然后才能操作视图
