@@ -793,7 +793,7 @@
   > a.func2()       // Cherry
   > ```
 
-### apply/call/bind
+#### apply/call/bind
 
 - 使用这三个函数也可以来改变`this`的指向
 
