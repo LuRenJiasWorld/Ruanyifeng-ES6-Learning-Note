@@ -1,14 +1,16 @@
 # Ruanyifeng-ES6-Learning-Note
 
-> 个人阅读阮一峰[《ECMAScript 6 入门》](https://es6.ruanyifeng.com/)时做的笔记，以提纲形式罗列
+> 个人阅读阮一峰[《ECMAScript 6 入门》](https://es6.ruanyifeng.com/)时做的笔记，以提纲形式罗列。
 >
-> 着重于常用的、已成规范的、简明的内容，去掉了一些使用不多，意义不大，纯粹为了炫技的内容
+> 着重于常用的、已成规范的、简明的内容，去掉了一些使用不多，意义不大，纯粹为了炫技/完善语言理论框架的内容。
 >
 > 去掉了一些使用不多，意义不大，纯粹为了炫技的内容
 >
-> 便于读者快速入门，减少困惑，在最短时间内对整个ES6体系有完整了解
+> 便于希望了解ES6新特性的读者快速入门，减少困惑，在最短时间内对整个ES6体系有完整了解。
 >
-> 如果需要了解更多细节，建议阅读阮一峰的相关原文
+> 如果需要了解更多细节，建议阅读阮一峰的相关原文，内容相比较本文更加完善、细致。
+>
+> 本文以[Creative Commons 0 - 1.0协议释出](https://creativecommons.org/publicdomain/zero/1.0/legalcode.txt) ，允许任意用途使用。
 
 ## 目录
 
@@ -32,3 +34,7 @@
 - [Class](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#class)
 - [Module](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#module)
 - [ArrayBuffer](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#arraybuffer)
+
+## 反馈
+
+如果对本文有任何建议（谬误、缺失等），欢迎在issues中提出。
