@@ -10,7 +10,7 @@
 >
 > 本文完整阅读约需1小时，相比较原文10+小时阅读时间更适合粗略了解。如果需要了解更多细节，建议阅读阮一峰的相关原文，内容相比较本文更加完善、细致。
 >
-> 本文以[Creative Commons 0 - 1.0协议 ](https://creativecommons.org/publicdomain/zero/1.0/legalcode.txt)释出，允许任意用途使用。
+> 本文以[Creative Commons 0 - 1.0协议 ](https://creativecommons.org/publicdomain/zero/1.0/legalcode.txt)释出，允许任意用途使用，欢迎转载，无需标注原作者姓名（标注也没关系，我会感谢你😄）。
 
 ## 目录
 
