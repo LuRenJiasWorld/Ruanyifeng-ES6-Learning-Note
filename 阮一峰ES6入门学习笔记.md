@@ -1310,3 +1310,44 @@
 - 私有方法/属性在名称前加井号
 - Class的继承必须显式调用父类构造器，而且要在调用父类构造器之后才能修改自身属性
 
+## Module
+
+- CommonJS使用`require()`语法，运行时加载所需的方法，再使用大括号进行解构
+
+- ES6模块使用`import`语法，直接导入此前已经`export`过的对象/方法
+
+- ES6模块默认启动严格模式
+
+- 模块使用`export`输出，必须输出接口（因为`import`时会对接口进行解构）
+
+  ```javascript
+  // 可以输出变量
+  var firstName = 'Michael';
+  var lastName = 'Jackson';
+  var year = 1958;
+  
+  export { firstName, lastName, year };
+  
+  // 可以输出函数
+  export function multiply(x, y) {
+    return x * y;
+  };
+  
+  // 可以对输出的内容重命名
+  export {
+    v1 as streamV1,
+    v2 as streamV2,
+    v2 as streamLatestVersion
+  };
+  ```
+
+- 模块不能在块级作用域中被导出，否则会违背ES6模块设计（静态优化）
+
+- 模块输入需要使用对象解构语法或者星号（星号不能导出默认方法），可以用as为模块重命名
+- `export default`可以避免使用库的时候不知道导出的对象叫什么名字，这样`import`时可以指定任意名字
+- 可以从其他模块`export`它们的接口：`export { foo as myFoo } from 'my_module';`，对于功能复杂的模块，可以专门设置一个文件负责导出所有子模块
+- `import`不能按需加载，但是`import()`可以，其本质是一个Promise对象
+- `Module`的加载
+  - `<script>`可以带一个`async`或者`defer`属性，前者在JS加载完之后立刻执行（不管是否渲染完毕）阻塞页面渲染，后者等待页面渲染完毕再执行
+  - 浏览器加载ES6模块需要在`<script>`里带一个`type="module"`属性，此时加载默认为`defer`模式，不会阻塞浏览器
+
