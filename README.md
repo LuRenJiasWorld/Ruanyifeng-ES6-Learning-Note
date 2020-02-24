@@ -13,22 +13,22 @@
 ## 目录
 
 - [let和const](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#let%E5%92%8Cconst)
-- 变量的解构赋值
-- 字符串的扩展
-- 字符串的新增方法
-- 正则的扩展
-- 数值的扩展
-- 函数的扩展
-  - 关于this/apply/call/bind
-- 数组的扩展
-  - 展平数组的若干方法
-- 对象的扩展
-  - 对象的各种方法
-- Set和Map数据结构
-- Promise
-- Iterator&for...of
-- Generator
-- async函数
-- Class
-- Module
-- ArrayBuffer
+- [变量的解构赋值](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#%E5%8F%98%E9%87%8F%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC)
+- [字符串的扩展](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95)
+- [字符串的新增方法](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95)
+- [正则的扩展](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#%E6%AD%A3%E5%88%99%E7%9A%84%E6%89%A9%E5%B1%95)
+- [数值的扩展](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#%E6%95%B0%E5%80%BC%E7%9A%84%E6%89%A9%E5%B1%95)
+- [函数的扩展](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#%E5%87%BD%E6%95%B0%E7%9A%84%E6%89%A9%E5%B1%95)
+  - [关于this/apply/call/bind](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#%E5%85%B3%E4%BA%8Ethisapplycallbind)
+- [数组的扩展](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95)
+  - [展平数组的若干方法](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#%E5%B1%95%E5%B9%B3%E6%95%B0%E7%BB%84%E7%9A%84%E8%8B%A5%E5%B9%B2%E6%96%B9%E6%B3%95)
+- [对象的扩展](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95)
+  - [对象的各种方法](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%90%84%E7%A7%8D%E6%96%B9%E6%B3%95)
+- [Set和Map数据结构](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#set%E5%92%8Cmap%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+- [Promise](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#promise)
+- [Iterator&for...of](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#iteratorforof)
+- [Generator](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#generator)
+- [async函数](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#async%E5%87%BD%E6%95%B0)
+- [Class](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#class)
+- [Module](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#module)
+- [ArrayBuffer](https://github.com/LuRenJiasWorld/Ruanyifeng-ES6-Learning-Note/blob/master/%E9%98%AE%E4%B8%80%E5%B3%B0ES6%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md#arraybuffer)
