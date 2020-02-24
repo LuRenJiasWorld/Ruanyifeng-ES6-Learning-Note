@@ -1291,3 +1291,11 @@
 - `next()`方法如果带一个参数，这个参数就会被当做上一个yield的返回值
 - `yield*`可以在一个函数内执行另一个生成器，混合两者结果输出
 - Generator可以实现异步/协程
+
+## async函数
+
+- `async`函数相比较`Generator`，自带执行器，会自动调用`next`方法
+- 函数前加`async`声明该函数是`async`函数，函数中使用`await`跳出函数，返回Promise对象
+- `async`的错误处理机制
+  - 包含多个`await`的函数中，只要有一个出现错误，整个Promise对象就会被`reject`，因此最好把`await`命令放在`try...catch`中
+
